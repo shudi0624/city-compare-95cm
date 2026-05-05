@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  margin:0;
+  background:#fff;
+  font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+}
+.wrap{
+  max-width:792px;
+  margin:0 auto;
+  padding:20px 12px;
+  box-sizing:border-box;
+}
+.title{
+  text-align:center;
+  font-size:22px;
+  font-weight:800;
+  color:#003b8f;
+  margin-bottom:10px;
+}
+.desc{
+  text-align:center;
+  font-size:15px;
+  color:#555;
+  margin-bottom:18px;
+}
+.compare{
+  position:relative;
+  width:100%;
+  aspect-ratio:792/555;
+  overflow:hidden;
+  border-radius:16px;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  background:url("https://imgs.gvm.com.tw/upload/gallery/20260430/230561.jpg") center/cover no-repeat;
+  cursor:ew-resize;
+  touch-action:none;
+}
+.overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  width:50%;
+  height:100%;
+  overflow:hidden;
+}
+.overlay-inner{
+  width:792px;
+  height:100%;
+  background:url("https://imgs.gvm.com.tw/upload/gallery/20260430/230560.jpg") center/cover no-repeat;
+}
+.line{
+  position:absolute;
+  top:0;
+  left:50%;
+  width:3px;
+  height:100%;
+  background:#fff;
+  box-shadow:0 0 8px rgba(0,0,0,.35);
+  transform:translateX(-50%);
+}
+.handle{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(0,0,0,.28);
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#003b8f;
+  font-size:20px;
+  font-weight:900;
+  pointer-events:none;
+}
+.tag{
+  position:absolute;
+  top:14px;
+  color:#fff;
+  padding:7px 13px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:800;
+}
+.tag.left{
+  left:14px;
+  background:rgba(255,140,0,.95);
+}
+.tag.right{
+  right:14px;
+  background:rgba(0,59,143,.9);
+}
+.note{
+  text-align:center;
+  font-size:13px;
+  color:#777;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="title">一秒看懂：成人視角與95公分視角差在哪？</div>
+  <div class="desc">左右拖拉中間滑桿，比較不同高度看見的街道世界</div>
+
+  <div class="compare" id="compareBox">
+    <div class="overlay" id="overlay">
+      <div class="overlay-inner" id="overlayInner"></div>
+    </div>
+
+    <div class="line" id="line"></div>
+    <div class="handle" id="handle">↔</div>
+
+    <div class="tag left">95公分視角</div>
+    <div class="tag right">成人視角</div>
+  </div>
+
+  <div class="note">拖曳中間白色滑桿，切換成人與95公分視角</div>
+</div>
+
+<script>
+(function(){
+  var box = document.getElementById("compareBox");
+  var overlay = document.getElementById("overlay");
+  var overlayInner = document.getElementById("overlayInner");
+  var line = document.getElementById("line");
+  var handle = document.getElementById("handle");
+
+  function syncWidth(){
+    overlayInner.style.width = box.offsetWidth + "px";
+  }
+
+  function move(clientX){
+    var rect = box.getBoundingClientRect();
+    var x = clientX - rect.left;
+
+    if(x < 0) x = 0;
+    if(x > rect.width) x = rect.width;
+
+    var percent = x / rect.width * 100;
+
+    overlay.style.width = percent + "%";
+    line.style.left = percent + "%";
+    handle.style.left = percent + "%";
+  }
+
+  box.addEventListener("mousedown", function(e){
+    move(e.clientX);
+  });
+
+  box.addEventListener("mousemove", function(e){
+    if(e.buttons === 1){
+      move(e.clientX);
+    }
+  });
+
+  box.addEventListener("touchstart", function(e){
+    if(e.touches.length){
+      move(e.touches[0].clientX);
+    }
+  }, {passive:false});
+
+  box.addEventListener("touchmove", function(e){
+    if(e.touches.length){
+      move(e.touches[0].clientX);
+      e.preventDefault();
+    }
+  }, {passive:false});
+
+  window.addEventListener("resize", syncWidth);
+  window.addEventListener("load", syncWidth);
+  syncWidth();
+})();
+</script>
+</body>
+</html>
