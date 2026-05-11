@@ -15,7 +15,7 @@ body{
 .wrap{
   max-width:792px;
   margin:0 auto;
-  padding:20px 12px;
+  padding:8px 8px 0;
   box-sizing:border-box;
 }
 
@@ -134,8 +134,48 @@ body{
   text-align:center;
   font-size:13px;
   color:#777;
-  margin-top:14px;
-  line-height:1.7;
+  margin-top:6px;
+  line-height:1.5;
+  /* 🔴 新增 */
+  padding-bottom:0;
+}
+  /* 🔴 手機版修正 */
+@media (max-width:768px){
+
+  html,
+  body{
+    margin:0 !important;
+    padding:0 !important;
+    overflow:hidden;
+  }
+
+  .wrap{
+
+    /* 🔴 再縮小 */
+    padding:4px 4px 0;
+
+  }
+
+  .title{
+    font-size:18px;
+
+    /* 🔴 原本 margin-bottom:10px */
+    margin-bottom:4px;
+  }
+
+  .desc{
+    font-size:13px;
+
+    /* 🔴 原本 margin-bottom:18px */
+    margin-bottom:8px;
+  }
+
+  .note{
+    margin-top:4px;
+    font-size:12px;
+    line-height:1.4;
+  }
+
 }
 </style>
 </head>
@@ -255,7 +295,7 @@ body{
       move(e.touches[0].clientX);
     }
 
-  }, {passive:false});
+  }, {passive:true});
 
   box.addEventListener("touchmove", function(e){
 
