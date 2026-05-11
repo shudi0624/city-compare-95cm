@@ -45,7 +45,15 @@ body{
   box-shadow:0 10px 30px rgba(0,0,0,.16);
   background:url("https://imgs.gvm.com.tw/upload/gallery/20260430/230561.jpg") center/cover no-repeat;
   cursor:ew-resize;
-  touch-action:none;
+  touch-action:pan-y;
+}
+
+@media (max-width:768px){
+  .compare{
+    aspect-ratio:792/555;
+    border-radius:16px;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);
+  }
 }
 
 /* 左側覆蓋圖 */
@@ -169,7 +177,7 @@ body{
   </div>
 
   <div class="note">
-    拖曳中間白色滑桿，切換成人與95公分視角
+    拖曳中間白色滑桿，切換成人與95公分視角。照片來源：嘉義諸羅塾。
   </div>
 
 </div>
