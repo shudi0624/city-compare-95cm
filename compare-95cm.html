@@ -130,7 +130,6 @@ body {
   color: #333;
 }
 
-/* ✨ 標題置中設定 ✨ */
 .info-title {
   font-size: 18px;
   font-weight: 800;
@@ -195,7 +194,7 @@ body {
     <div class="info-title">兒童95公分視角翻轉鏡是什麼？</div>
     <div class="info-content">
       <p>這一組看起來像紙箱玩具的潛望鏡，其實是一個嚴肅的專業工具。由全球城市設計倡議組織開發，將成人視角高度還原約95公分三歲孩子的身高。透過它看出去，你會突然發現：路邊違停的汽車比你還高，紅綠燈號誌看不見，六線道大馬路的另一端遙不可及，而原本習以為常的人行道，充滿從未注意的坑洞、高差與障礙物。</p>
-      <p>超越遊戲理事長李玉華是將這套工具引入台灣並系統性推廣的先行者。多年來，她帶著被她稱作同理心工具的翻轉鏡，走遍內政部國土署人本規劃師課程、嘉義市政府、高雄圖書館和國立台灣美術館、汽車製造設計師工作坊和各地大學、社區營造現場，讓未來規劃師、設計師和社區工作者，用身體感受為孩子設計。</p>
+      <p>超越遊戲理事長李玉華是將這套工具引入台灣並系統性推廣的先行者。多年來，她帶著被她稱作同理心工具的翻轉鏡，走遍內政部國土署人本規劃師課程、嘉義市政府、高雄圖書館和國立台灣美術館、汽車製造設計師工作坊和各地大學、社區營造現場，讓未來規劃師、設計師和社區工作者，先用身體感受為孩子設計。</p>
     </div>
   </div>
 
@@ -237,7 +236,6 @@ body {
     updateTags(percent);
   }
 
-  /* 事件監聽 */
   box.addEventListener("mousedown", function(e){ move(e.clientX); });
   box.addEventListener("mousemove", function(e){ if(e.buttons === 1){ move(e.clientX); } });
   box.addEventListener("touchstart", function(e){ if(e.touches.length){ move(e.touches[0].clientX); } }, {passive:true});
@@ -249,74 +247,8 @@ body {
   updateTags(50);
 })();
 </script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.contentWindow.min.js"></script>
-</body>
-</html>
-  function move(clientX){
 
-    var rect = box.getBoundingClientRect();
-
-    var x = clientX - rect.left;
-
-    if(x < 0){ x = 0; }
-
-    if(x > rect.width){ x = rect.width; }
-
-    var percent = (x / rect.width) * 100;
-
-    overlay.style.width = percent + "%";
-
-    line.style.left = percent + "%";
-
-    handle.style.left = percent + "%";
-
-    updateTags(percent);
-  }
-
-  /* 桌機 */
-  box.addEventListener("mousedown", function(e){
-    move(e.clientX);
-  });
-
-  box.addEventListener("mousemove", function(e){
-
-    if(e.buttons === 1){
-      move(e.clientX);
-    }
-
-  });
-
-  /* 手機 */
-  box.addEventListener("touchstart", function(e){
-
-    if(e.touches.length){
-      move(e.touches[0].clientX);
-    }
-
-  }, {passive:true});
-
-  box.addEventListener("touchmove", function(e){
-
-    if(e.touches.length){
-
-      move(e.touches[0].clientX);
-
-      e.preventDefault();
-    }
-
-  }, {passive:false});
-
-  /* resize */
-  window.addEventListener("resize", syncWidth);
-
-  window.addEventListener("load", syncWidth);
-
-  syncWidth();
-
-  updateTags(50);
-
-})();
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.contentWindow.min.js"></script>
 </body>
 </html>
