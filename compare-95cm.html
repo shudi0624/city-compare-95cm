@@ -6,175 +6,165 @@
 <title>成人與95公分視角比較</title>
 
 <style>
-body{
-  margin:0;
-  background:#fff;
-  font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;
+body {
+  margin: 0;
+  background: #fff;
+  font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
 }
 
-.wrap{
-  max-width:792px;
-  margin:0 auto;
-  padding:0 8px 10px;
-  box-sizing:border-box;
+.wrap {
+  max-width: 792px;
+  margin: 0 auto;
+  padding: 0 12px 20px;
+  box-sizing: border-box;
 }
 
-.title{
-  text-align:center;
-  font-size:20px;
-  font-weight:800;
-  color:#003b8f;
-  margin-bottom:10px 0 6px;
-  line-height:1.5;
+/* 圖表大標題 */
+.title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 800;
+  color: #003b8f;
+  margin: 15px 0 8px;
+  line-height: 1.3;
 }
 
-.desc{
-  text-align:center;
-  font-size:15px;
-  color:#555;
-  margin-bottom:12px;
-  line-height:1.7;
+/* 拖拉說明 */
+.desc {
+  text-align: center;
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 12px;
+  line-height: 1.5;
 }
 
-.compare{
-  position:relative;
-  width:100%;
-  aspect-ratio:792/555;
-  overflow:hidden;
-  border-radius:22px;
-  box-shadow:0 10px 30px rgba(0,0,0,.16);
-  background:url("https://imgs.gvm.com.tw/upload/gallery/20260430/230561.jpg") center/cover no-repeat;
-  cursor:ew-resize;
-  touch-action:pan-y;
+/* 比較工具主體 */
+.compare {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 792/555;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.12);
+  background: url("https://imgs.gvm.com.tw/upload/gallery/20260430/230561.jpg") center/cover no-repeat;
+  cursor: ew-resize;
+  touch-action: pan-y;
 }
 
-@media (max-width:768px){
-  .compare{
-    aspect-ratio:792/555;
-    border-radius:16px;
-    box-shadow:0 6px 18px rgba(0,0,0,.12);
-  }
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* 左側覆蓋圖 */
-.overlay{
-  position:absolute;
-  top:0;
-  left:0;
-  width:50%;
-  height:100%;
-  overflow:hidden;
+.overlay-inner {
+  width: 792px;
+  height: 100%;
+  background: url("https://imgs.gvm.com.tw/upload/gallery/20260430/230560.jpg") center/cover no-repeat;
 }
 
-.overlay-inner{
-  width:792px;
-  height:100%;
-  background:url("https://imgs.gvm.com.tw/upload/gallery/20260430/230560.jpg") center/cover no-repeat;
+.line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,.35);
+  transform: translateX(-50%);
+  z-index: 5;
 }
 
-/* 中間線 */
-.line{
-  position:absolute;
-  top:0;
-  left:50%;
-  width:3px;
-  height:100%;
-  background:#fff;
-  box-shadow:0 0 10px rgba(0,0,0,.35);
-  transform:translateX(-50%);
-  z-index:5;
+.handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,.25);
+  transform: translate(-50%,-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #003b8f;
+  font-size: 24px;
+  font-weight: 900;
+  z-index: 10;
+  pointer-events: none;
 }
 
-/* 中間按鈕 */
-.handle{
-  position:absolute;
-  top:50%;
-  left:50%;
-  width:56px;
-  height:56px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 6px 20px rgba(0,0,0,.25);
-  transform:translate(-50%,-50%);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#003b8f;
-  font-size:24px;
-  font-weight:900;
-  z-index:10;
-  pointer-events:none;
+.tag {
+  position: absolute;
+  top: 18px;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  z-index: 20;
 }
 
-/* 標籤 */
-.tag{
-  position:absolute;
-  top:18px;
-  color:#fff;
-  padding:8px 16px;
-  border-radius:999px;
-  font-size:14px;
-  font-weight:800;
-  line-height:1;
-  z-index:20;
-  transition:all .25s ease;
+.tag.left { left: 18px; background: rgba(0,59,143,.9); }
+.tag.right { right: 18px; background: rgba(255,140,0,.95); }
+
+.note {
+  text-align: center;
+  font-size: 13px;
+  color: #888;
+  margin-top: 10px;
+  line-height: 1.4;
 }
 
-.tag.left{
-  left:18px;
-  background:rgba(0,59,143,.92);
+/* 下方說明文字區塊 */
+.info-box {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f4f7fa;
+  border-radius: 15px;
+  color: #333;
 }
 
-.tag.right{
-  right:18px;
-  background:rgba(255,140,0,.96);
+/* ✨ 標題置中設定 ✨ */
+.info-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #003b8f;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  text-align: center; 
 }
 
-.note{
-  text-align:center;
-  font-size:13px;
-  color:#777;
-  margin-top:6px;
-  line-height:1.5;
-  /* 🔴 新增 */
-  padding-bottom:0;
+.info-content {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #444;
 }
-  /* 🔴 手機版修正 */
-@media (max-width:768px){
 
-  html,
-  body{
-    margin:0 !important;
-    padding:0 !important;
-  }
+.info-content p {
+  margin: 0 0 12px;
+}
 
-  .wrap{
+.info-content p:last-child {
+  margin-bottom: 0;
+}
 
-    /* 🔴 再縮小 */
-    padding:4px 4px 0;
-
-  }
-
-  .title{
-    font-size:18px;
-
-    /* 🔴 原本 margin-bottom:10px */
-    margin-bottom:4px;
-  }
-
-  .desc{
-    font-size:13px;
-
-    /* 🔴 原本 margin-bottom:18px */
-    margin-bottom:8px;
-  }
-
-  .note{
-    margin-top:4px;
-    font-size:12px;
-    line-height:1.4;
-  }
-
+/* 手機版優化 */
+@media (max-width: 600px) {
+  .wrap { padding: 0 8px 15px; }
+  .title { font-size: 18px; margin: 10px 0 5px; }
+  .desc { font-size: 13px; margin-bottom: 8px; }
+  .handle { width: 44px; height: 44px; font-size: 20px; }
+  .tag { top: 12px; padding: 4px 10px; font-size: 12px; }
+  
+  .info-box { margin-top: 12px; padding: 15px; }
+  .info-title { font-size: 16px; margin-bottom: 10px; }
+  .info-content { font-size: 14px; line-height: 1.6; }
 }
 </style>
 </head>
@@ -183,54 +173,41 @@ body{
 
 <div class="wrap">
 
-  <div class="title">
-    一秒看懂：成人視角與95公分視角差在哪？
-  </div>
+  <div class="title">一秒看懂：成人視角與95公分視角差在哪？</div>
 
-  <div class="desc">
-    左右拖拉中間滑桿，比較不同高度看見的街道世界
-  </div>
+  <div class="desc">左右拖拉中間滑桿，比較不同高度看見的街道世界</div>
 
   <div class="compare" id="compareBox">
-
-    <!-- 左側覆蓋圖 -->
     <div class="overlay" id="overlay">
       <div class="overlay-inner" id="overlayInner"></div>
     </div>
-
-    <!-- 中線 -->
     <div class="line" id="line"></div>
-
-    <!-- 中間按鈕 -->
     <div class="handle" id="handle">↔</div>
-
-    <!-- 標籤 -->
-    <div class="tag left" id="tagAdult">
-      成人視角
-    </div>
-
-    <div class="tag right" id="tagChild">
-      95公分視角
-    </div>
-
+    <div class="tag left" id="tagAdult">成人視角</div>
+    <div class="tag right" id="tagChild">95公分視角</div>
   </div>
 
   <div class="note">
-    拖曳中間白色滑桿，切換成人與95公分視角。照片來源：嘉義諸羅塾。
+    拖曳中間白色滑桿切換視角。照片來源：嘉義諸羅塾。
+  </div>
+
+  <div class="info-box">
+    <div class="info-title">兒童95公分視角翻轉鏡是什麼？</div>
+    <div class="info-content">
+      <p>這一組看起來像紙箱玩具的潛望鏡，其實是一個嚴肅的專業工具。由全球城市設計倡議組織開發，將成人視角高度還原約95公分三歲孩子的身高。透過它看出去，你會突然發現：路邊違停的汽車比你還高，紅綠燈號誌看不見，六線道大馬路的另一端遙不可及，而原本習以為常的人行道，充滿從未注意的坑洞、高差與障礙物。</p>
+      <p>超越遊戲理事長李玉華是將這套工具引入台灣並系統性推廣的先行者。多年來，她帶著被她稱作同理心工具的翻轉鏡，走遍內政部國土署人本規劃師課程、嘉義市政府、高雄圖書館和國立台灣美術館、汽車製造設計師工作坊和各地大學、社區營造現場，讓未來規劃師、設計師和社區工作者，用身體感受為孩子設計。</p>
+    </div>
   </div>
 
 </div>
 
 <script>
 (function(){
-
   var box = document.getElementById("compareBox");
   var overlay = document.getElementById("overlay");
   var overlayInner = document.getElementById("overlayInner");
-
   var line = document.getElementById("line");
   var handle = document.getElementById("handle");
-
   var tagAdult = document.getElementById("tagAdult");
   var tagChild = document.getElementById("tagChild");
 
@@ -239,20 +216,42 @@ body{
   }
 
   function updateTags(percent){
-
     if(percent < 50){
-
       tagAdult.style.display = "block";
       tagChild.style.display = "none";
-
     }else{
-
       tagAdult.style.display = "none";
       tagChild.style.display = "block";
-
     }
   }
 
+  function move(clientX){
+    var rect = box.getBoundingClientRect();
+    var x = clientX - rect.left;
+    if(x < 0){ x = 0; }
+    if(x > rect.width){ x = rect.width; }
+    var percent = (x / rect.width) * 100;
+    overlay.style.width = percent + "%";
+    line.style.left = percent + "%";
+    handle.style.left = percent + "%";
+    updateTags(percent);
+  }
+
+  /* 事件監聽 */
+  box.addEventListener("mousedown", function(e){ move(e.clientX); });
+  box.addEventListener("mousemove", function(e){ if(e.buttons === 1){ move(e.clientX); } });
+  box.addEventListener("touchstart", function(e){ if(e.touches.length){ move(e.touches[0].clientX); } }, {passive:true});
+  box.addEventListener("touchmove", function(e){ if(e.touches.length){ move(e.touches[0].clientX); e.preventDefault(); } }, {passive:false});
+  
+  window.addEventListener("resize", syncWidth);
+  window.addEventListener("load", syncWidth);
+  syncWidth();
+  updateTags(50);
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.2/iframeResizer.contentWindow.min.js"></script>
+</body>
+</html>
   function move(clientX){
 
     var rect = box.getBoundingClientRect();
